@@ -33,10 +33,10 @@ func (f *Files) UploadFile(ctx context.Context, binaryRequest *model.FileRequest
 	return binary, nil
 }
 
-func (f *Files) GetListFile(ctx context.Context, userId int64) ([]model.File, error) {
+func (f *Files) GetListFile(ctx context.Context, userID int64) ([]model.File, error) {
 	listFile := []model.File{}
 	const sqlText = "SELECT file_id, user_id, name, created_at FROM file where user_id = $1 and deleted_at IS NULL"
-	rows, err := f.db.QueryContext(ctx, sqlText, userId)
+	rows, err := f.db.QueryContext(ctx, sqlText, userID)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return nil, custom_errors.ErrRecordNotFound

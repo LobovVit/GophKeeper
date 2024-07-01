@@ -110,7 +110,7 @@ func (h *Handler) FileRemove(ctx context.Context, req *grpc.DeleteBinaryRequest)
 	FileData.UserID = req.AccessToken.UserId
 	FileData.Name = req.Name
 
-	BinaryId, err := h.file.DeleteFile(ctx, FileData)
+	BinaryID, err := h.file.DeleteFile(ctx, FileData)
 	if err != nil {
 		logger.Log.Error("delete file", zap.Error(err))
 		return &grpc.DeleteBinaryResponse{}, status.Errorf(
@@ -126,7 +126,7 @@ func (h *Handler) FileRemove(ctx context.Context, req *grpc.DeleteBinaryRequest)
 		)
 	}
 
-	return &grpc.DeleteBinaryResponse{Id: BinaryId}, nil
+	return &grpc.DeleteBinaryResponse{Id: BinaryID}, nil
 }
 
 // FileUpload - checks the validity of the token, upload file on client
