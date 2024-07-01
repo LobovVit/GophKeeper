@@ -36,7 +36,7 @@ func run(ctx context.Context) error {
 	}
 	ctx, cancel := signal.NotifyContext(ctx, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 	defer cancel()
-	app, err := ui.New(cfg, fmt.Sprintf(" client version %v-%v-%v ", buildVersion, buildDate, buildCommit))
+	app, err := ui.New(cfg, fmt.Sprintf("VERSION :  %v-%v (%v)", buildVersion, buildCommit, buildDate))
 	if err != nil {
 		return fmt.Errorf("ui: %w", err)
 	}
