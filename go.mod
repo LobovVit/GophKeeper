@@ -24,7 +24,7 @@ require (
 	github.com/fredbi/uri v1.0.0 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/fyne-io/gl-js v0.0.0-20220119005834-d2da28d9ccfe // indirect
-	github.com/fyne-io/glfw-js v0.0.0-20220120001248-ee7290d23504 // indirect
+	github.com/fyne-io/glfw-js v0.0.0-20240101223322-6e1efdc71b7a // indirect
 	github.com/fyne-io/image v0.0.0-20240417123036-dc0ee9e7c964 // indirect
 	github.com/go-gl/gl v0.0.0-20231021071112-07e5d0ea2e71 // indirect
 	github.com/go-gl/glfw/v3.3/glfw v0.0.0-20240506104042-037f3cc74f2a // indirect
