@@ -8,8 +8,8 @@ import (
 )
 
 func CreateStorageUser(dirPath string, id int64) error {
-	userId := strconv.Itoa(int(id))
-	path := filepath.Join(dirPath, userId)
+	userID := strconv.Itoa(int(id))
+	path := filepath.Join(dirPath, userID)
 	err := os.MkdirAll(path, os.ModePerm)
 	if err != nil {
 		return err
@@ -18,8 +18,8 @@ func CreateStorageUser(dirPath string, id int64) error {
 }
 
 func CreateStorageNotExistsUser(dirPath string, id int64) error {
-	userId := strconv.Itoa(int(id))
-	path := filepath.Join(dirPath, userId)
+	userID := strconv.Itoa(int(id))
+	path := filepath.Join(dirPath, userID)
 	_, err := os.Stat(path)
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -35,8 +35,8 @@ func CreateStorageNotExistsUser(dirPath string, id int64) error {
 }
 
 func UploadFile(dirPath string, id int64, name string, data []byte) error {
-	userId := strconv.Itoa(int(id))
-	path := filepath.Join(dirPath, userId, "/", name)
+	userID := strconv.Itoa(int(id))
+	path := filepath.Join(dirPath, userID, "/", name)
 	// Write data to file
 	err := os.WriteFile(path, data, 0644)
 	if err != nil {
@@ -46,8 +46,8 @@ func UploadFile(dirPath string, id int64, name string, data []byte) error {
 }
 
 func DownloadFile(dirPath string, id int64, name string) ([]byte, error) {
-	userId := strconv.Itoa(int(id))
-	path := filepath.Join(dirPath, userId, "/", name)
+	userID := strconv.Itoa(int(id))
+	path := filepath.Join(dirPath, userID, "/", name)
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -61,8 +61,8 @@ func DownloadFile(dirPath string, id int64, name string) ([]byte, error) {
 }
 
 func RemoveFile(dirPath string, id int64, name string) error {
-	userId := strconv.Itoa(int(id))
-	path := filepath.Join(dirPath, userId, "/", name)
+	userID := strconv.Itoa(int(id))
+	path := filepath.Join(dirPath, userID, "/", name)
 	err := os.Remove(path)
 	if err != nil {
 		return err

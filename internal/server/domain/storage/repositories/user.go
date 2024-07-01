@@ -78,6 +78,9 @@ func (u *User) UserList(ctx context.Context) ([]model.GetAllUsers, error) {
 			return users, err
 		}
 	}
+	if err = rows.Err(); err != nil {
+		return users, err
+	}
 	defer rows.Close()
 	for rows.Next() {
 		user := model.GetAllUsers{}

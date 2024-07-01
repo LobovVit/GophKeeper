@@ -45,14 +45,16 @@ func (e *Entity) Create(ctx context.Context, entityRequest *model.CreateEntityRe
 func (e *Entity) GetList(ctx context.Context, userID int64, typeEntity string) ([]model.Entity, error) {
 	entities := []model.Entity{}
 	const sqlText = "SELECT entity_id, user_id, data, metadata, created_at, updated_at FROM entity where user_id = $1 and metadata->>'Type' = $2 and deleted_at IS NULL"
-	rows, err := e.db.QueryContext(ctx, sqlText,
-		userID, typeEntity)
+	rows, err := e.db.QueryContext(ctx, sqlText, userID, typeEntity)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
 			return entities, custom_errors.ErrRecordNotFound
 		} else {
 			return entities, err
 		}
+	}
+	if err = rows.Err(); err != nil {
+		return entities, err
 	}
 	defer rows.Close()
 	for rows.Next() {

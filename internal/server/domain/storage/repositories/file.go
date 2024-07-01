@@ -44,6 +44,9 @@ func (f *Files) GetListFile(ctx context.Context, userId int64) ([]model.File, er
 			return nil, err
 		}
 	}
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
 	defer rows.Close()
 	for rows.Next() {
 		binary := model.File{}

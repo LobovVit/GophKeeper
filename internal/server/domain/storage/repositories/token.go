@@ -98,6 +98,9 @@ func (t *Token) GetList(ctx context.Context, userID int64) ([]model.Token, error
 			return tokens, err
 		}
 	}
+	if err = rows.Err(); err != nil {
+		return tokens, err
+	}
 	defer rows.Close()
 	for rows.Next() {
 		token := model.Token{}
