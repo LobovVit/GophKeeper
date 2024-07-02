@@ -13,7 +13,6 @@ func TestGetConfig(t *testing.T) {
 	}{
 		{name: "test get config", want: &Config{
 			HostGRPC: "localhost:3200",
-			Files:    "./files",
 			LogLevel: "info",
 			FileSize: 4000000,
 		}, wantErr: false},

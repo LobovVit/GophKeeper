@@ -11,6 +11,7 @@ import (
 	"github.com/LobovVit/GophKeeper/internal/client/model"
 )
 
+// App - struct is used to create App.
 type App struct {
 	ui           fyne.App
 	client       *client.Client
@@ -22,6 +23,7 @@ type App struct {
 	currentRow   map[string][]string
 }
 
+// New - method creates a new App.
 func New(cfg *config.Config, ver string) (*App, error) {
 	var t App
 	t.ui = app.NewWithID("GophKeeper.ya")
@@ -41,6 +43,7 @@ func New(cfg *config.Config, ver string) (*App, error) {
 	return &t, nil
 }
 
+// Run - method starts an App instance
 func (u App) Run(ctx context.Context) error {
 	u.window.Resize(fyne.NewSize(constants.WindowAuthWidth, constants.WindowAuthHeight))
 	u.window.SetContent(u.getWelcomeForm(ctx))

@@ -12,7 +12,6 @@ import (
 type Config struct {
 	HostGRPC string `env:"GRPC_ADDRESS"`
 	LogLevel string `env:"LOG_LEVEL"`
-	Files    string `env:"FILES"`
 	FileSize int    `env:"FILE_SIZE"`
 }
 
@@ -25,16 +24,12 @@ func GetConfig() (*Config, error) {
 	}
 
 	hostGRPC := flag.String("g", "localhost:3200", "адрес эндпоинта grpc-сервера")
-	files := flag.String("f", "./files", "файлы")
 	logLevel := flag.String("l", "info", "log level")
 	fileSize := flag.Int("s", 4000000, "размер файлов")
 	flag.Parse()
 
 	if config.HostGRPC == "" {
 		config.HostGRPC = *hostGRPC
-	}
-	if config.Files == "" {
-		config.Files = *files
 	}
 	if config.LogLevel == "" {
 		config.LogLevel = *logLevel
