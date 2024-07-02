@@ -12,21 +12,15 @@ func TestGetConfig(t *testing.T) {
 		wantErr bool
 	}{
 		{name: "test get config", want: &Config{
-			Host:       "localhost:8080",
-			HostGRPC:   "localhost:3200",
-			LogLevel:   "info",
-			DSN:        "",
-			SigningKey: "",
-			CryptoKey:  "private.pem",
+			HostGRPC: "localhost:3200",
+			Files:    "./files",
+			LogLevel: "info",
+			FileSize: 4000000,
 		}, wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Setenv("ADDRESS", tt.want.Host)
 			t.Setenv("LOG_LEVEL", tt.want.LogLevel)
-			t.Setenv("DATABASE_DSN", tt.want.SigningKey)
-			t.Setenv("KEY", tt.want.SigningKey)
-			t.Setenv("CRYPTO_KEY", tt.want.CryptoKey)
 			got, err := GetConfig()
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetConfig() error = %v, wantErr %v", err, tt.wantErr)
