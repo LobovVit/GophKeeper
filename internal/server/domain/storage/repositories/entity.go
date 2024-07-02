@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/LobovVit/GophKeeper/internal/server/domain/model"
-	custom_errors "github.com/LobovVit/GophKeeper/internal/server/domain/storage/errors"
+	customErrors "github.com/LobovVit/GophKeeper/internal/server/domain/storage/errors"
 )
 
 type Entity struct {
@@ -48,7 +48,7 @@ func (e *Entity) GetList(ctx context.Context, userID int64, typeEntity string) (
 	rows, err := e.db.QueryContext(ctx, sqlText, userID, typeEntity)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return entities, custom_errors.ErrRecordNotFound
+			return entities, customErrors.ErrRecordNotFound
 		} else {
 			return entities, err
 		}

@@ -15,7 +15,7 @@ type sidebar struct {
 	view  func(ctx context.Context, w fyne.Window) fyne.CanvasObject
 }
 
-func (u App) makeSidebar(ctx context.Context, setSidebar func(sidebar sidebar)) fyne.CanvasObject {
+func (u App) makeSidebar(setSidebar func(sidebar sidebar)) fyne.CanvasObject {
 	var sidebarItems = map[string]sidebar{
 		"login":  {"Logins", u.loginPassword},
 		"text":   {"Texts", u.text},

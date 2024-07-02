@@ -40,7 +40,7 @@ func (u App) getMainForm(ctx context.Context) fyne.CanvasObject {
 		content.Refresh()
 	}
 	item := container.NewBorder(container.NewVBox(buttonTopSynchronization, widget.NewSeparator()), nil, nil, nil, content)
-	side := container.NewBorder(nil, nil, nil, nil, u.makeSidebar(ctx, setSidebar))
+	side := container.NewBorder(nil, nil, nil, nil, u.makeSidebar(setSidebar))
 	formMainContainer := container.NewHSplit(side, item)
 	formMainContainer.Offset = 0.1
 	return formMainContainer

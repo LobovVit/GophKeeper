@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/LobovVit/GophKeeper/internal/server/domain/model"
-	custom_errors "github.com/LobovVit/GophKeeper/internal/server/domain/storage/errors"
+	customErrors "github.com/LobovVit/GophKeeper/internal/server/domain/storage/errors"
 )
 
 type Files struct {
@@ -39,7 +39,7 @@ func (f *Files) GetListFile(ctx context.Context, userID int64) ([]model.File, er
 	rows, err := f.db.QueryContext(ctx, sqlText, userID)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return nil, custom_errors.ErrRecordNotFound
+			return nil, customErrors.ErrRecordNotFound
 		} else {
 			return nil, err
 		}

@@ -7,12 +7,12 @@ import (
 )
 
 func Encrypt(plaintext string, secretKey []byte) (string, error) {
-	aes, err := aes.NewCipher(secretKey)
+	cipherBlock, err := aes.NewCipher(secretKey)
 	if err != nil {
 		return "", err
 	}
 
-	gcm, err := cipher.NewGCM(aes)
+	gcm, err := cipher.NewGCM(cipherBlock)
 	if err != nil {
 		return "", err
 	}
@@ -27,12 +27,12 @@ func Encrypt(plaintext string, secretKey []byte) (string, error) {
 }
 
 func Decrypt(ciphertext string, secretKey []byte) (string, error) {
-	aes, err := aes.NewCipher(secretKey)
+	cipherBlock, err := aes.NewCipher(secretKey)
 	if err != nil {
 		return "", err
 	}
 
-	gcm, err := cipher.NewGCM(aes)
+	gcm, err := cipher.NewGCM(cipherBlock)
 	if err != nil {
 		return "", err
 	}

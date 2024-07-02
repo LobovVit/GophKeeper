@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/LobovVit/GophKeeper/internal/server/domain/model"
-	custom_errors "github.com/LobovVit/GophKeeper/internal/server/domain/storage/errors"
+	customErrors "github.com/LobovVit/GophKeeper/internal/server/domain/storage/errors"
 	"github.com/LobovVit/GophKeeper/pkg/utils"
 )
 
@@ -93,7 +93,7 @@ func (t *Token) GetList(ctx context.Context, userID int64) ([]model.Token, error
 	)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return tokens, custom_errors.ErrRecordNotFound
+			return tokens, customErrors.ErrRecordNotFound
 		} else {
 			return tokens, err
 		}

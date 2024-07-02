@@ -35,7 +35,7 @@ func NewHandler(db *sql.DB, config *config.Config, userRepository *repositories.
 func (h *Handler) Ping(ctx context.Context, req *grpc.PingRequest) (*grpc.PingResponse, error) {
 	logger.Log.Info("ping")
 	var msg string
-	err := h.database.Ping()
+	err := h.database.PingContext(ctx)
 	if err != nil {
 		msg = "unsuccessful database connection"
 		logger.Log.Error("ping", zap.Error(err))

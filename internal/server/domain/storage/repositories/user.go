@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/LobovVit/GophKeeper/internal/server/domain/model"
-	custom_errors "github.com/LobovVit/GophKeeper/internal/server/domain/storage/errors"
+	customErrors "github.com/LobovVit/GophKeeper/internal/server/domain/storage/errors"
 )
 
 type Constructor interface {
@@ -49,7 +49,7 @@ func (u *User) Authentication(ctx context.Context, userRequest *model.UserReques
 	)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return nil, custom_errors.ErrWrongUsernameOrPassword
+			return nil, customErrors.ErrWrongUsernameOrPassword
 		} else {
 			return nil, err
 		}
@@ -73,7 +73,7 @@ func (u *User) UserList(ctx context.Context) ([]model.GetAllUsers, error) {
 	rows, err := u.db.QueryContext(ctx, sqlText)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return users, custom_errors.ErrRecordNotFound
+			return users, customErrors.ErrRecordNotFound
 		} else {
 			return users, err
 		}
