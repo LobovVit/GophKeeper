@@ -1,0 +1,1 @@
+GophKeeper_server.exe -g "localhost:3200" -d "postgresql://postgres:password@10.66.66.3:5432/postgres?sslmode=disable"
