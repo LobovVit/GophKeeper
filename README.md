@@ -1,10 +1,14 @@
 # GophKeeper
+Менеджер паролей GophKeeper
 
-## Готовое BIN/{os}
-
+GophKeeper представляет собой клиент-серверную систему, позволяющую пользователю надёжно и безопасно хранить логины, пароли, бинарные данные и прочую приватную информацию.
+## Готовое к работе лежит в BIN
+1) linux
+2) mac_m2
+3) windows
 ## Как собрать
-`make build_server`
-`make build_client`
-## Как запустить
-`make run_server`
-`make run_client`
+1) Сервер `make build_server`
+2) Клиент `make build_client`
+## Как собрать и запустить
+1) Сервер `make run_server`
+2) Клиент `make run_client`
