@@ -17,6 +17,7 @@ var (
 	buildCommit  = "N/A"
 )
 
+// main - function that is executed at startup and is the entry point to the program
 func main() {
 	fmt.Printf("Build version: %s\n", buildVersion)
 	fmt.Printf("Build date: %s\n", buildDate)
@@ -26,6 +27,7 @@ func main() {
 	}
 }
 
+// run - function starts the application, initializes the config and logger, creates an instance of the agent and launches it
 func run(ctx context.Context) error {
 	cfg, err := config.GetConfig()
 	if err != nil {

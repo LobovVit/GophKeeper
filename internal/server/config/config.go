@@ -12,7 +12,6 @@ import (
 // Config determines the basic parameters of the server's operation
 type Config struct {
 	HostGRPC      string        `env:"GRPC_ADDRESS"`
-	MigrationDir  string        `env:"MGR_DIR"`
 	LogLevel      string        `env:"LOG_LEVEL"`
 	DSN           string        `env:"DATABASE_DSN" `
 	Files         string        `env:"FILES"`
@@ -28,8 +27,7 @@ func GetConfig() (*Config, error) {
 	}
 
 	hostGRPC := flag.String("g", "localhost:3200", "адрес эндпоинта grpc-сервера")
-	migrationDir := flag.String("m", "./migrations", "файлы миграции")
-	files := flag.String("f", "./files", "хранилище файлов")
+	files := flag.String("f", "./GophKeeperServerFiles", "хранилище файлов")
 	logLevel := flag.String("l", "info", "log level")
 	dsn := flag.String("d", "postgresql://postgres:password@10.66.66.3:5432/postgres?sslmode=disable", "строка подключения к БД")
 	flag.Parse()
@@ -37,9 +35,6 @@ func GetConfig() (*Config, error) {
 	config.TokenLifetime = 30000 * time.Second
 	if config.HostGRPC == "" {
 		config.HostGRPC = *hostGRPC
-	}
-	if config.MigrationDir == "" {
-		config.MigrationDir = *migrationDir
 	}
 	if config.Files == "" {
 		config.Files = *files

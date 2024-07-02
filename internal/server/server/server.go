@@ -26,7 +26,7 @@ type Server struct {
 
 // New - method to create server instance
 func New(ctx context.Context, config *config.Config) (*Server, error) {
-	stor, err := postgresql.NewConn(ctx, config.DSN, config.MigrationDir)
+	stor, err := postgresql.NewConn(ctx, config.DSN)
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (a *Server) Run(ctx context.Context) error {
 	}
 	userRepository := repositories.NewUserRepo(a.storage)
 	binaryRepository := repositories.NewFileRepo(a.storage)
-	fileStorage := repositories.New("/tmp")
+	fileStorage := repositories.New(a.config.Files)
 	entityRepository := repositories.NewEntityRepo(a.storage)
 	tokenRepository := repositories.NewTokenRepo(a.storage)
 	handlerGrpc := grpchandler.NewHandler(a.storage, a.config, userRepository, binaryRepository, &fileStorage, entityRepository, tokenRepository)

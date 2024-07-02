@@ -17,27 +17,9 @@ func CreateStorageUser(dirPath string, id int64) error {
 	return nil
 }
 
-func CreateStorageNotExistsUser(dirPath string, id int64) error {
-	userID := strconv.Itoa(int(id))
-	path := filepath.Join(dirPath, userID)
-	_, err := os.Stat(path)
-	if err != nil {
-		if os.IsNotExist(err) {
-			err := os.MkdirAll(path, os.ModePerm)
-			if err != nil {
-				return err
-			}
-		} else {
-			return err
-		}
-	}
-	return nil
-}
-
 func UploadFile(dirPath string, id int64, name string, data []byte) error {
 	userID := strconv.Itoa(int(id))
 	path := filepath.Join(dirPath, userID, "/", name)
-	// Write data to file
 	err := os.WriteFile(path, data, 0644)
 	if err != nil {
 		return err

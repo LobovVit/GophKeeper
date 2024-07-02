@@ -39,12 +39,6 @@ func (c Client) Authentication(ctx context.Context, username, password string) (
 	token = model.Token{AccessToken: authenticatedUser.AccessToken.Token, UserID: authenticatedUser.AccessToken.UserId,
 		CreatedAt: createdToken, EndDateAt: endDateToken}
 
-	err = utils.CreateStorageNotExistsUser(c.Cfg.Files, token.UserID)
-	if err != nil {
-		logger.Log.Error("create constants not exists user", zap.Error(err))
-		return token, err
-	}
-
 	return token, nil
 }
 
@@ -87,12 +81,6 @@ func (c Client) Registration(ctx context.Context, username, password string) (mo
 	}
 	token = model.Token{AccessToken: registeredUser.AccessToken.Token, UserID: registeredUser.AccessToken.UserId,
 		CreatedAt: createdToken, EndDateAt: endDateToken}
-
-	err = utils.CreateStorageUser(c.Cfg.Files, token.UserID)
-	if err != nil {
-		logger.Log.Error("create constants user", zap.Error(err))
-		return token, err
-	}
 
 	return token, nil
 }

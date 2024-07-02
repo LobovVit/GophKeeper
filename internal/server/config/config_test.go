@@ -16,7 +16,6 @@ func TestGetConfig(t *testing.T) {
 			HostGRPC:      "localhost:3200",
 			LogLevel:      "info",
 			DSN:           "postgresql://postgres:password@10.66.66.3:5432/postgres?sslmode=disable",
-			MigrationDir:  "./migrations",
 			Files:         "./files",
 			TokenLifetime: 30000 * time.Second,
 		}, wantErr: false},

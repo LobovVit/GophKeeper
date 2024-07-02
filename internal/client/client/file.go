@@ -58,12 +58,6 @@ func (c Client) FileDownload(ctx context.Context, name string, password string, 
 		return nil, err
 	}
 
-	//err = utils.UploadFile(c.Cfg.Files, token.UserID, name, []byte(file))
-	//if err != nil {
-	//	logger.Log.Error("upload file", zap.Error(err))
-	//	return err
-	//}
-
 	return []byte(file), nil
 }
 

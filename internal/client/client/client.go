@@ -12,12 +12,14 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
+// Client - struct is used to create grpc client with settings.
 type Client struct {
 	Cfg  *config.Config
 	grpc pb.GophKeeperClient
 	pb.UnimplementedGophKeeperServer
 }
 
+// New - method creates a new Client.
 func New(config *config.Config) (*Client, error) {
 	client := Client{Cfg: config}
 	conn, err := grpc.NewClient(
@@ -31,7 +33,7 @@ func New(config *config.Config) (*Client, error) {
 	return &client, nil
 }
 
-// Ping - ping
+// Ping - test connection to GRPC server
 func (c Client) Ping(ctx context.Context) (string, error) {
 	logger.Log.Info("ping")
 
