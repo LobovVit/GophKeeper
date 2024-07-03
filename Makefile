@@ -16,3 +16,9 @@ build_server:
 
 run_server: build_server
 	./bin/$(APP)_server -g "localhost:3200" -d "postgresql://postgres:password@10.66.66.3:5432/postgres?sslmode=disable"
+
+docker_up:
+	docker-compose up -d
+
+docker_down:
+	docker-compose down
