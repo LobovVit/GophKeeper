@@ -10,12 +10,6 @@ import (
 	customErrors "github.com/LobovVit/GophKeeper/internal/server/domain/storage/errors"
 )
 
-type Constructor interface {
-	Registration(data *model.UserRequest) error
-	Authentication(user *model.UserRequest) (bool, error)
-	UserExists(username string) (bool, error)
-}
-
 type User struct {
 	db *sql.DB
 }
@@ -65,65 +59,4 @@ func (u *User) UserExists(ctx context.Context, username string) (bool, error) {
 		return exists, err
 	}
 	return exists, nil
-}
-
-func (u *User) UserList(ctx context.Context) ([]model.GetAllUsers, error) {
-	users := []model.GetAllUsers{}
-	const sqlText = "SELECT username, deleted_at FROM users"
-	rows, err := u.db.QueryContext(ctx, sqlText)
-	if err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
-			return users, customErrors.ErrRecordNotFound
-		} else {
-			return users, err
-		}
-	}
-	if err = rows.Err(); err != nil {
-		return users, err
-	}
-	defer rows.Close()
-	for rows.Next() {
-		user := model.GetAllUsers{}
-
-		err = rows.Scan(&user.Username, &user.DeletedAt)
-		if err != nil {
-			return users, err
-		}
-		users = append(users, user)
-	}
-	return users, nil
-}
-
-func (u *User) Block(ctx context.Context, username string) (int64, error) {
-	var id int64
-	const sqlText = "UPDATE users SET deleted_at = $1 where username = $2 RETURNING user_id"
-	if err := u.db.QueryRowContext(ctx, sqlText,
-		time.Now(),
-		username,
-	).Scan(&id); err != nil {
-		return id, err
-	}
-	return id, nil
-}
-
-func (u *User) Unblock(ctx context.Context, username string) (int64, error) {
-	var id int64
-	const sqlText = "UPDATE users SET deleted_at = null where username = $1 RETURNING user_id"
-	if err := u.db.QueryRowContext(ctx, sqlText,
-		username,
-	).Scan(&id); err != nil {
-		return id, err
-	}
-	return id, nil
-}
-
-func (u *User) GetUserID(ctx context.Context, username string) (int64, error) {
-	var id int64
-	const sqlText = "SELECT user_id FROM users where username = $1"
-	if err := u.db.QueryRowContext(ctx, sqlText,
-		username,
-	).Scan(&id); err != nil {
-		return id, err
-	}
-	return id, nil
 }
