@@ -1,0 +1,1 @@
+GophKeeper_client.exe -g "localhost:3200"

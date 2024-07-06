@@ -1,0 +1,43 @@
+version: '3'
+services:
+  gophkeeper:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3200:3200"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+       GRPC_ADDRESS: ":3200"
+       DATABASE_DSN: "postgresql://postgres:postgres@postgres:5432/postgres?sslmode=disable"
+       FILES: "/tmp/GophKeeperServerFiles"
+    volumes:
+      - "files:/tmp"
+    networks:
+      - postgres
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: "unless-stopped"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "postgres"
+    volumes:
+      - "postgres:/var/lib/postgresql/data"
+    networks:
+      - postgres
+volumes:
+  postgres:
+  files:
+networks:
+  postgres:
+    driver: bridge
